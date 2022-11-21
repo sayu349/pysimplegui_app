@@ -41,31 +41,31 @@ def sample_poisson(N, pm, ke, alpha, audit_risk, internal_control='依拠しな�
 
 
 # GUIのテーマカラー
-sg.change_look_and_feel('DarkAmber')
+sg.theme('DarkBlue1')
 
 # 各項目のレイアウト
-layout = [[sg.Text('ファイル選択'),
-          sg.InputText('ファイルパス・名',key='file'),
-          sg.FilesBrowse('ファイル読込', target='file', file_types=(('Excell ファイル', '*.xlsx'),))],
-          [sg.Text('保存先の選択'),
-          sg.InputText('ファイルパス・名',key='save_file'),
-          sg.FolderBrowse('保存先を選択', target='save_file')],
-          [sg.Text('手続実施上の重要性'),
-          sg.InputText('半角で数値を入力してください',key='pm')],
-          [sg.Text('監査リスク')],
-          [sg.Radio('RMM-L','audit_risk'),
-          sg.Radio('RMM-H','audit_risk'),
-          sg.Radio('SR','audit_risk')],
-          [sg.Text('内部統制')],
-          [sg.Radio('依拠する','internal_control'),
-          sg.Radio('依拠しない','internal_control')],
-          [sg.Text('ランダムシード'),
-          sg.InputText('半角で数値を入力してください',key='random_state')],
-          [sg.Button('実行',key='bt')]]
+layout = [[sg.Text('ファイル選択', font=('Arial',15)),
+          sg.InputText('ファイルパス・名',key='file', font=('Arial',15)),
+          sg.FilesBrowse('ファイル読込', target='file', file_types=(('Excell ファイル', '*.xlsx'),), font=('Arial',15))],
+          [sg.Text('保存先の選択', font=('Arial',15)),
+          sg.InputText('ファイルパス・名',key='save_file', font=('Arial',15)),
+          sg.FolderBrowse('保存先を選択', target='save_file', font=('Arial',15))],
+          [sg.Text('手続実施上の重要性', font=('Arial',15))],
+          [sg.InputText('半角で数値を入力してください',key='pm', font=('Arial',15))],
+          [sg.Text('監査リスク', font=('Arial',15))],
+          [sg.Radio('RMM-L','audit_risk', font=('Arial',15)),
+          sg.Radio('RMM-H','audit_risk', font=('Arial',15)),
+          sg.Radio('SR','audit_risk', font=('Arial',15))],
+          [sg.Text('内部統制', font=('Arial',15))],
+          [sg.Radio('依拠する','internal_control', font=('Arial',15)),
+          sg.Radio('依拠しない','internal_control', font=('Arial',15))],
+          [sg.Text('ランダムシード', font=('Arial',15))],
+          [sg.InputText('半角で数値を入力してください',key='random_state', font=('Arial',15))],
+          [sg.Button('実行',key='bt', font=('Arial',15))]]
 
 
 # ウィンドウ作成
-window = sg.Window('エクセルファイルの入出力', layout)
+window = sg.Window('202303中間監査サンプリング', layout)
 
 # イベントループ
 while True:
