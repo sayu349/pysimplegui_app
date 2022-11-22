@@ -46,10 +46,12 @@ sg.theme('DarkBlue1')
 # 各項目のレイアウト
 layout = [[sg.Text('ファイル選択', font=('Arial',15)),
           sg.InputText('ファイルパス・名',key='file', font=('Arial',15)),
-          sg.FilesBrowse('ファイル読込', target='file', file_types=(('Excell ファイル', '*.xlsx'),), font=('Arial',15))],
+          sg.FilesBrowse('ファイル読込', target='file', file_types=(('ALL Files','*.*'),), font=('Arial',15))],
           [sg.Text('保存先の選択', font=('Arial',15)),
           sg.InputText('ファイルパス・名',key='save_file', font=('Arial',15)),
           sg.FolderBrowse('保存先を選択', target='save_file', font=('Arial',15))],
+          [sg.Text('金額列のカラム名',font=('Arial',15)),
+          sg.InputText('金額列のカラム名を入力してください',key='amount',font=('Arial',15))],
           [sg.Text('手続実施上の重要性', font=('Arial',15))],
           [sg.InputText('半角で数値を入力してください',key='pm', font=('Arial',15))],
           [sg.Text('監査リスク', font=('Arial',15))],
@@ -78,7 +80,7 @@ while True:
     elif event == 'bt':
         file_name = values['file'] # ファイルパスを取得
         save_file_name = values['save_file'] # 保存先ファイルを指定
-        amount = '金額' # 金額列のカラム名を指定
+        amount = values['amount'] # 金額列のカラム名を指定
             
         if values['pm'] != '半角で数値を入力してください':
             pm = int(values['pm']) # 手続実施上の重要性
@@ -116,7 +118,11 @@ while True:
             sg.popup('保存先ディレクトリを指定してください')
 
         if file_name != 'ファイルパス・名':
-            sample_data = pd.read_excel(file_name)
+            if file_name[-1] == 'v':
+                sample_data = pd.read_csv(file_name)
+            else:
+                sample_data = pd.read_excel(file_name)
+            
             total_amount = sample_data[amount].sum()
 
             # サンプルサイズnの算定
